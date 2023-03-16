@@ -30,4 +30,8 @@ export class UsersDatabase extends BaseDatabase {
         const foundUserDB = await this.dbConnection(UsersDatabase.TABLE_USERS).where({ password: userPassword })
         return foundUserDB
     }
+
+    public async deleteUser(userToDeleteId: string) {
+        await this.dbConnection(UsersDatabase.TABLE_USERS).del().where({id: userToDeleteId})
+    }
 }
