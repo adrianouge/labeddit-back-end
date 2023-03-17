@@ -15,3 +15,9 @@ export interface postDB {
     likes: number,
     comments: number
 }
+
+export interface likedPostDB {
+    post_id: string,
+    user_id: string,
+    liked: number
+}
