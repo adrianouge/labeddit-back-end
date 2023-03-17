@@ -35,12 +35,11 @@ export class PostsController {
         }
     }
 
-    
     public getPost = async (req: Request, res: Response) => {
 
         try {
             const userToken = req.headers.authorization
-            const { postId } = req.body
+            const postId = req.params.id
             const input = this.postsDTO.getPostInput(userToken, postId)
             const output = this.postsBusiness.getPost(input)
 
@@ -58,11 +57,32 @@ export class PostsController {
         }
     }
 
+    public getPosts = async (req: Request, res: Response) => {
+
+        try {
+            const userToken = req.headers.authorization
+            const input = this.postsDTO.getPostsInput(userToken)
+            const output = this.postsBusiness.getPosts(input)
+
+            res.status(200).send(output)
+        }
+
+        catch (error) {
+
+            console.log(error)
+
+            if (error instanceof BaseError) {
+                res.send(error.message)
+            }
+            else { res.send("Ocorreu um erro inesperado.") }
+        }
+    }
 
     public editPost = async (req: Request, res: Response) => {
         try {
+            const postId = req.params.id
             const userToken = req.headers.authorization
-            const { newContent, postId } = req.body
+            const { newContent } = req.body
             const input = this.postsDTO.editPostInput(userToken, newContent, postId)
             const output = this.postsBusiness.editPost(input)
             res.status(200).send(output)
@@ -79,12 +99,11 @@ export class PostsController {
         }
     }
 
-
     public likePost = async (req: Request, res: Response) => {
 
         try {
             const userToken = req.headers.authorization
-            const { postId } = req.body
+            const postId = req.params.id
             const input = this.postsDTO.likePostInput(userToken, postId)
             const output = this.postsBusiness.likePost(input)
 
@@ -102,12 +121,11 @@ export class PostsController {
         }
     }
 
-
     public dislikePost = async (req: Request, res: Response) => {
 
         try {
             const userToken = req.headers.authorization
-            const { postId } = req.body
+            const postId = req.params.id
             const input = this.postsDTO.dislikePostInput(userToken, postId)
             const output = this.postsBusiness.dislikePost(input)
 
@@ -125,12 +143,11 @@ export class PostsController {
         }
     }
 
-
     public deletePost = async (req: Request, res: Response) => {
 
         try {
             const userToken = req.headers.authorization
-            const { postId } = req.body
+            const postId = req.params.id
             const input = this.postsDTO.deletePostInput(userToken, postId)
             const output = this.postsBusiness.deletePost(input)
 

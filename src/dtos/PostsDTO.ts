@@ -24,6 +24,10 @@ export interface GetPostOutput {
 }
 
 
+export interface GetPostsInput {
+    userToken: string
+}
+
 export interface GetPostsOutput {
     allPosts: postDB[]
 }
@@ -106,6 +110,17 @@ export class PostsDTO {
         return dto
     }
 
+
+    public getPostsInput(userToken: unknown): GetPostsInput {
+
+        if (typeof userToken !== 'string') {
+            throw new BadRequestError("Token inválido.")
+        }
+
+        const dto: GetPostsInput = { userToken }
+        
+        return dto
+    }
 
     public getPostsOutput(allPosts: postDB[]): GetPostsOutput {
         const dto: GetPostsOutput = { allPosts }

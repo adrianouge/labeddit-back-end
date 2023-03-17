@@ -1,19 +1,16 @@
 import { PostsDatabase } from "../database/PostsDatabase";
 import { postDB } from "../types";
-import { Post } from "../models/Post";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { CreateNewPostInput, DeletePostInput, DislikePostInput, EditPostInput, GetPostInput, LikePostInput, PostsDTO } from "../dtos/PostsDTO";
+import { CreateNewPostInput, DeletePostInput, DislikePostInput, EditPostInput, GetPostInput, GetPostsInput, LikePostInput, PostsDTO } from "../dtos/PostsDTO";
 import { BadRequestError } from "../errors/BadRequestError";
-import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { NotFoundError } from "../errors/NotFoundError";
 
 export class PostsBusiness {
     constructor(
         private postsDTO: PostsDTO,
         private postsDatabase: PostsDatabase,
-        private tokenManager: TokenManager,
-        private idGenerator: IdGenerator,
+        private tokenManager: TokenManager
     ) { }
 
     public createNewPost = async (input: CreateNewPostInput) => {
@@ -65,6 +62,20 @@ export class PostsBusiness {
 
         const output = this.postsDTO.getPostOutput(foundPost)
 
+        return output
+    }
+
+    public getPosts = async (input: GetPostsInput) => {
+        const { userToken } = input
+        const userPayLoad = this.tokenManager.getPayload(userToken)
+
+        if (!userPayLoad) {
+            throw new BadRequestError("Token inválido.")
+        }
+
+        const allPosts = await this.postsDatabase.getPosts()
+
+        const output = this.postsDTO.getPostsOutput(allPosts)
         return output
     }
 
@@ -159,7 +170,7 @@ export class PostsBusiness {
         await this.postsDatabase.deletePost(postId)
 
         const output = this.postsDTO.deletePostOutput()
-        
+
         return output
     }
 }
