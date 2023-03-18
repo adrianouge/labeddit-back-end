@@ -21,3 +21,13 @@ export interface likedPostDB {
     user_id: string,
     liked: number
 }
+
+export interface commentDB {
+    comment_id: string,
+    commenter_id: string,
+    post_id: string,
+    content: string,
+    likes: number,
+    created_at: string,
+    edited_at: string
+}

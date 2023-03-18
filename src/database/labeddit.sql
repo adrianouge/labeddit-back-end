@@ -1,4 +1,5 @@
 -- Active: 1679067589201@@127.0.0.1@3306
+
 CREATE TABLE
     users (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -26,6 +27,7 @@ CREATE TABLE
         commenter_id TEXT NOT NULL,
         post_id TEXT NOT NULL,
         content TEXT NOT NULL,
+        likes INTEGER DEFAULT(0) NOT NULL,
         created_at TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
         edited_at TEXT
     );
@@ -38,3 +40,9 @@ CREATE TABLE
         FOREIGN KEY(post_id) REFERENCES posts(post_id),
         FOREIGN KEY(user_id) REFERENCES users(id)
     );
+
+DROP TABLE users;
+
+DROP TABLE comments;
+
+DROP TABLE likes;

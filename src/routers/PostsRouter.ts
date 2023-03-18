@@ -21,9 +21,22 @@ const postsController = new PostsController(
 )
 
 postsRouter.post('/', postsController.createNewPost)
+postsRouter.get('/:id', postsController.editPost)
+postsRouter.delete('/id', postsController.deletePost)
+
 postsRouter.get('/', postsController.getPosts)
 postsRouter.get('/:id', postsController.getPost)
-postsRouter.get('/:id', postsController.editPost)
+
 postsRouter.post('/:id', postsController.likePost)
 postsRouter.post('/:id', postsController.dislikePost)
-postsRouter.delete('/id', postsController.deletePost)
+
+
+postsRouter.post('/:id', postsController.createNewComment)
+postsRouter.post('/:id', postsController.editComment)
+postsRouter.delete('/:id', postsController.deleteComment)
+
+postsRouter.get('/:id', postsController.getComments)
+postsRouter.get('/:id', postsController.getComment)
+
+postsRouter.post('/:id', postsController.likeComment)
+postsRouter.post('/:id', postsController.dislikeComment)
