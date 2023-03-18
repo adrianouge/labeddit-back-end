@@ -1,5 +1,4 @@
 import { commentDB, postDB } from "../types";
-import { Post } from "../models/Post";
 import { BadRequestError } from "../errors/BadRequestError";
 
 

@@ -1,6 +1,5 @@
 import { PostsDatabase } from "../database/PostsDatabase";
 import { commentDB, postDB } from "../types";
-import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { CreateNewCommentInput, CreateNewPostInput, DeleteCommentInput, DeletePostInput, DislikeCommentInput, DislikePostInput, EditCommentInput, EditPostInput, GetCommentInput, GetCommentsInput, GetPostInput, GetPostsInput, LikeCommentInput, LikePostInput, PostsDTO } from "../dtos/PostsDTO";
 import { BadRequestError } from "../errors/BadRequestError";
@@ -360,7 +359,7 @@ export class PostsBusiness {
         if (!commentToDislike) {
             throw new NotFoundError("Comentário para descurtir não encontrado com o 'id' informado.")
         }
-        
+
         const commentDisliked: commentDB = {
             comment_id: commentToDislike.comment_id,
             commenter_id: commentToDislike.commenter_id,
