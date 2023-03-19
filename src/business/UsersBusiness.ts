@@ -9,7 +9,8 @@ import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { CreateNewUserInput, DeleteUserInput, LoginUserInput, UsersDTO } from "../dtos/UsersDTO";
 
-export class UserBusiness {
+export class UsersBusiness {
+    
     constructor(
         private usersDTO: UsersDTO,
         private hashManager: HashManager,
@@ -20,7 +21,7 @@ export class UserBusiness {
     public createNewUser = async (newUser: CreateNewUserInput) => {
 
         const [checkId] = await this.usersDatabase.checkId(newUser.id)
-
+        console.log(checkId)
         if (checkId) {
             throw new BadRequestError("Cada conta deve ter 'id' único.")
         }

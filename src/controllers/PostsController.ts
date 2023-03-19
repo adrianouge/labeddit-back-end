@@ -220,7 +220,6 @@ export class PostsController {
 
         try {
             const userToken = req.headers.authorization
-            const postId = req.params.id
             const commentId = req.body.comment_id
             const input = this.postsDTO.deleteCommentInput(userToken, commentId)
             const output = this.postsBusiness.deleteComment(input)
@@ -328,5 +327,5 @@ export class PostsController {
             else { res.send("Ocorreu um erro inesperado.") }
         }
     }
-
+    
 }

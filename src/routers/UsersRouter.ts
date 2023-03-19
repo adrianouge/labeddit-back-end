@@ -1,7 +1,7 @@
 import express from 'express'
 
 import { UsersController } from "../controllers/UsersController";
-import { UserBusiness } from "../business/UsersBusiness";
+import { UsersBusiness } from "../business/UsersBusiness";
 import { UsersDatabase } from "../database/UsersDatabase";
 import { UsersDTO } from "../dtos/UsersDTO";
 
@@ -12,7 +12,7 @@ import { IdGenerator } from '../services/IdGenerator';
 export const usersRouter = express.Router()
 
 const usersController = new UsersController(
-    new UserBusiness(
+    new UsersBusiness(
         new UsersDTO(),
         new HashManager(),
         new UsersDatabase(),

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserBusiness } from "../business/UsersBusiness";
+import { UsersBusiness } from "../business/UsersBusiness";
 import { BaseError } from "../errors/BaseError";
 import { UsersDTO } from "../dtos/UsersDTO";
 import { IdGenerator } from "../services/IdGenerator";
@@ -8,7 +8,7 @@ import { IdGenerator } from "../services/IdGenerator";
 export class UsersController {
 
     constructor(
-        private userBusiness: UserBusiness,
+        private usersBusiness: UsersBusiness,
         private usersDTO: UsersDTO,
         private idGenerator: IdGenerator
     ) { }
@@ -21,7 +21,7 @@ export class UsersController {
             const { name, email, password } = req.body
             const newUser = { id, name, email, password }
             const input = this.usersDTO.createNewUserInput(newUser)
-            const output = this.userBusiness.createNewUser(input)
+            const output = this.usersBusiness.createNewUser(input)
 
             res.status(200).send(output)
         }
@@ -42,7 +42,7 @@ export class UsersController {
         try {
             const { email, password } = req.body
             const input = this.usersDTO.loginUserInput(email, password)
-            const output = this.userBusiness.loginUser(input)
+            const output = this.usersBusiness.loginUser(input)
 
             res.status(200).send(output)
         }
@@ -63,7 +63,7 @@ export class UsersController {
         try {
             const token = req.headers.authorization
             const input = this.usersDTO.deleteUserInput(token)
-            const output = await this.userBusiness.deleteUser(input)
+            const output = await this.usersBusiness.deleteUser(input)
 
             res.status(200).send(output)
         }

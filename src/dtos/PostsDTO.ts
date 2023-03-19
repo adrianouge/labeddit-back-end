@@ -49,7 +49,7 @@ export interface GetPostsInput {
 }
 
 export interface GetPostsOutput {
-    allPosts: postDB[]
+    allPosts: postDB[] | undefined
 }
 
 
@@ -256,7 +256,7 @@ export class PostsDTO {
         return dto
     }
 
-    public getPostsOutput(allPosts: postDB[]): GetPostsOutput {
+    public getPostsOutput(allPosts: postDB[] | undefined): GetPostsOutput {
         const dto: GetPostsOutput = { allPosts }
         return dto
     }
@@ -512,7 +512,7 @@ export class PostsDTO {
     public likeCommentOutput(): LikeCommentOutput {
 
         const dto: LikeCommentOutput = {
-            message: "Post curtido com sucesso."
+            message: "Comentário curtido com sucesso."
         }
 
         return dto
@@ -539,7 +539,7 @@ export class PostsDTO {
     public dislikeCommentOutput(): DislikeCommentOutput {
 
         const dto: DislikeCommentOutput = {
-            message: "Post descurtido com sucesso."
+            message: "Comentário descurtido com sucesso."
         }
 
         return dto
