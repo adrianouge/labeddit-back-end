@@ -20,7 +20,7 @@ export class PostsController {
             const postId = this.idGenerator.generate()
             const { content } = req.body
             const input = this.postsDTO.createNewPostInput(userToken, postId, content)
-            const output = this.postsBusiness.createNewPost(input)
+            const output = await this.postsBusiness.createNewPost(input)
 
             res.status(200).send(output)
         }
@@ -42,7 +42,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const { newContent } = req.body
             const input = this.postsDTO.editPostInput(userToken, newContent, postId)
-            const output = this.postsBusiness.editPost(input)
+            const output = await this.postsBusiness.editPost(input)
             res.status(200).send(output)
         }
 
@@ -63,7 +63,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const postId = req.params.id
             const input = this.postsDTO.deletePostInput(userToken, postId)
-            const output = this.postsBusiness.deletePost(input)
+            const output = await this.postsBusiness.deletePost(input)
 
             res.status(200).send(output)
         }
@@ -86,7 +86,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const postId = req.params.id
             const input = this.postsDTO.getPostInput(userToken, postId)
-            const output = this.postsBusiness.getPost(input)
+            const output = await this.postsBusiness.getPost(input)
 
             res.status(200).send(output)
         }
@@ -107,7 +107,7 @@ export class PostsController {
         try {
             const userToken = req.headers.authorization
             const input = this.postsDTO.getPostsInput(userToken)
-            const output = this.postsBusiness.getPosts(input)
+            const output = await this.postsBusiness.getPosts(input)
 
             res.status(200).send(output)
         }
@@ -130,7 +130,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const postId = req.params.id
             const input = this.postsDTO.likePostInput(userToken, postId)
-            const output = this.postsBusiness.likePost(input)
+            const output = await this.postsBusiness.likePost(input)
 
             res.status(200).send(output)
         }
@@ -179,7 +179,7 @@ export class PostsController {
             const commentId = this.idGenerator.generate()
             const { content } = req.body
             const input = this.postsDTO.createNewCommentInput(userToken, postId, commentId, content)
-            const output = this.postsBusiness.createNewComment(input)
+            const output = await this.postsBusiness.createNewComment(input)
 
             res.status(200).send(output)
         }
@@ -201,7 +201,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const { newContent } = req.body
             const input = this.postsDTO.editPostInput(userToken, newContent, commentId)
-            const output = this.postsBusiness.editPost(input)
+            const output = await this.postsBusiness.editPost(input)
             res.status(200).send(output)
         }
 
@@ -222,7 +222,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const commentId = req.body.comment_id
             const input = this.postsDTO.deleteCommentInput(userToken, commentId)
-            const output = this.postsBusiness.deleteComment(input)
+            const output = await this.postsBusiness.deleteComment(input)
 
             res.status(200).send(output)
         }
@@ -245,7 +245,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const commentId = req.body.comment_id
             const input = this.postsDTO.getCommentInput(userToken, commentId)
-            const output = this.postsBusiness.getComment(input)
+            const output = await this.postsBusiness.getComment(input)
 
             res.status(200).send(output)
         }
@@ -267,7 +267,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const postId = req.params.id
             const input = this.postsDTO.getCommentsInput(userToken, postId)
-            const output = this.postsBusiness.getComments(input)
+            const output = await this.postsBusiness.getComments(input)
 
             res.status(200).send(output)
         }
@@ -290,7 +290,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const commentId = req.body.comment_id
             const input = this.postsDTO.likePostInput(userToken, commentId)
-            const output = this.postsBusiness.likePost(input)
+            const output = await this.postsBusiness.likePost(input)
 
             res.status(200).send(output)
         }
@@ -312,7 +312,7 @@ export class PostsController {
             const userToken = req.headers.authorization
             const commentId = req.body.comment_id
             const input = this.postsDTO.dislikeCommentInput(userToken, commentId)
-            const output = this.postsBusiness.dislikeComment(input)
+            const output = await this.postsBusiness.dislikeComment(input)
 
             res.status(200).send(output)
         }

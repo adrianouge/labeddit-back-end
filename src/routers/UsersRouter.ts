@@ -24,4 +24,4 @@ const usersController = new UsersController(
 
 usersRouter.post('/', usersController.createNewUser)
 usersRouter.post('/login', usersController.loginUser)
-usersRouter.delete('/', usersController.deleteUser)
+usersRouter.delete('/delete', usersController.deleteUser)

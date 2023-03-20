@@ -42,7 +42,7 @@ export class UsersController {
         try {
             const { email, password } = req.body
             const input = this.usersDTO.loginUserInput(email, password)
-            const output = this.usersBusiness.loginUser(input)
+            const output = await this.usersBusiness.loginUser(input)
 
             res.status(200).send(output)
         }
