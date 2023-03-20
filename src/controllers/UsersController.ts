@@ -21,7 +21,7 @@ export class UsersController {
             const { name, email, password } = req.body
             const newUser = { id, name, email, password }
             const input = this.usersDTO.createNewUserInput(newUser)
-            const output = this.usersBusiness.createNewUser(input)
+            const output = await this.usersBusiness.createNewUser(input)
 
             res.status(200).send(output)
         }

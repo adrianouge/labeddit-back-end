@@ -16,7 +16,7 @@ describe("createNewUser", () => {
     )
 
     test("deve retornar mensagem de sucesso e token mockado", async () => {
-
+        expect.assertions(2)
         const newUserMock: CreateNewUserInput = {
             id: "user-id-mock-novo",
             name: "nome mock",
