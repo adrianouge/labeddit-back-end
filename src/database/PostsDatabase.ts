@@ -11,7 +11,7 @@ export class PostsDatabase extends BaseDatabase {
 
     public async createNewPost(newPost: postDB): Promise<void> {
 
-        await this.dbConnection.insert(newPost).into(PostsDatabase.TABLE_POSTS)
+        await this.dbConnection(PostsDatabase.TABLE_POSTS).insert(newPost)
     }
 
     public async editPost(postId: string, newContent: string): Promise<void> {
