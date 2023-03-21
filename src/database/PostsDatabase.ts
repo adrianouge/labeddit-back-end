@@ -25,7 +25,7 @@ export class PostsDatabase extends BaseDatabase {
 
         await this.dbConnection(PostsDatabase.TABLE_POSTS)
             .del()
-            .where({ id: postId })
+            .where({ post_id: postId })
     }
 
 
