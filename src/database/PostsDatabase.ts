@@ -11,15 +11,14 @@ export class PostsDatabase extends BaseDatabase {
 
     public async createNewPost(newPost: postDB): Promise<void> {
 
-        await this.dbConnection(PostsDatabase.TABLE_POSTS)
-            .insert(newPost)
+        await this.dbConnection.insert(newPost).into(PostsDatabase.TABLE_POSTS)
     }
 
     public async editPost(postId: string, newContent: string): Promise<void> {
 
         await this.dbConnection(PostsDatabase.TABLE_POSTS)
             .insert(newContent)
-            .where({ id: postId })
+            .where({ post_id: postId })
     }
 
     public async deletePost(postId: string): Promise<void> {
@@ -33,7 +32,7 @@ export class PostsDatabase extends BaseDatabase {
     public async getPost(postId: string): Promise<postDB[] | undefined[]> {
 
         const postFound = await this.dbConnection(PostsDatabase.TABLE_POSTS)
-            .where({ id: postId })
+            .where({ post_id: postId })
         return postFound
     }
 
@@ -48,7 +47,7 @@ export class PostsDatabase extends BaseDatabase {
 
         await this.dbConnection(PostsDatabase.TABLE_POSTS)
             .update({ ...postToLike, likes: postToLike.likes += 1 })
-            .where({ id: postToLike.post_id })
+            .where({ post_id: postToLike.post_id })
 
         await this.dbConnection(PostsDatabase.TABLE_LIKES)
             .insert({ post_id: postToLike.post_id, user_id: userLikingId, liked: 1 })
@@ -65,7 +64,7 @@ export class PostsDatabase extends BaseDatabase {
 
         await this.dbConnection(PostsDatabase.TABLE_POSTS)
             .update({ ...postToDislike, likes: postToDislike.likes -= 1 })
-            .where({ id: postToDislike.post_id })
+            .where({ post_id: postToDislike.post_id })
 
         await this.dbConnection(PostsDatabase.TABLE_LIKES)
             .update({ ...likedPost, liked: 0 })
