@@ -22,7 +22,7 @@ const postsController = new PostsController(
 
 postsRouter.post('/', postsController.createNewPost)
 postsRouter.get('/:id', postsController.editPost)
-postsRouter.delete('/id', postsController.deletePost)
+postsRouter.delete('/:id', postsController.deletePost)
 
 postsRouter.get('/', postsController.getPosts)
 postsRouter.get('/:id', postsController.getPost)

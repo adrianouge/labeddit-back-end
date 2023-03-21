@@ -119,10 +119,9 @@ export class PostsBusiness {
             throw new BadRequestError("Token inválido.")
         }
 
-        const [allPosts] = await this.postsDatabase.getPosts()
+        const allPosts = await this.postsDatabase.getPosts()
 
-        const output = this.postsDTO.getPostsOutput(allPosts)
-        return output
+        return allPosts
     }
 
 

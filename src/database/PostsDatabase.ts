@@ -6,11 +6,11 @@ export class PostsDatabase extends BaseDatabase {
     public static TABLE_POSTS = "posts"
     public static TABLE_LIKES = "likes"
     public static TABLE_COMMENTS = "comments"
+
     dbConnection = BaseDatabase.connection
 
 
     public async createNewPost(newPost: postDB): Promise<void> {
-
         await this.dbConnection.insert(newPost).into(PostsDatabase.TABLE_POSTS)
     }
 
@@ -38,7 +38,7 @@ export class PostsDatabase extends BaseDatabase {
 
     public async getPosts(): Promise<[postDB[]] | undefined[]> {
 
-        const allPosts = await this.dbConnection(PostsDatabase.TABLE_POSTS)
+        const allPosts = await this.dbConnection.select('*').from(PostsDatabase.TABLE_POSTS)
         return allPosts
     }
 
