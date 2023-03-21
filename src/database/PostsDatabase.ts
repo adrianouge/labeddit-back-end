@@ -38,7 +38,7 @@ export class PostsDatabase extends BaseDatabase {
 
     public async getPosts(): Promise<[postDB[]] | undefined[]> {
 
-        const allPosts = await this.dbConnection(PostsDatabase.TABLE_POSTS)
+        const allPosts = await this.dbConnection.select('*').from(PostsDatabase.TABLE_POSTS)
         return allPosts
     }
 
