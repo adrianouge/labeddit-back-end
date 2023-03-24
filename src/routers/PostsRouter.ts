@@ -21,22 +21,22 @@ const postsController = new PostsController(
 )
 
 postsRouter.post('/', postsController.createNewPost)
-postsRouter.get('/:id', postsController.editPost)
+postsRouter.post('/:id/edit-post', postsController.editPost)
 postsRouter.delete('/:id', postsController.deletePost)
 
 postsRouter.get('/', postsController.getPosts)
 postsRouter.get('/:id', postsController.getPost)
 
-postsRouter.post('/:id', postsController.likePost)
-postsRouter.post('/:id', postsController.dislikePost)
+postsRouter.post('/:id/like', postsController.likePost)
+postsRouter.post('/:id/dislike', postsController.dislikePost)
 
 
-postsRouter.post('/:id', postsController.createNewComment)
-postsRouter.post('/:id', postsController.editComment)
-postsRouter.delete('/:id', postsController.deleteComment)
+postsRouter.post('/:id/new-comment', postsController.createNewComment)
+postsRouter.post('/:id/edit-comment', postsController.editComment)
+postsRouter.delete('/:id/', postsController.deleteComment)
 
-postsRouter.get('/:id', postsController.getComments)
-postsRouter.get('/:id', postsController.getComment)
+postsRouter.get('/:id/comments', postsController.getComments)
+postsRouter.get('/:id/comment', postsController.getComment)
 
-postsRouter.post('/:id', postsController.likeComment)
-postsRouter.post('/:id', postsController.dislikeComment)
+postsRouter.post('/:id/like-comment', postsController.likeComment)
+postsRouter.post('/:id/dislike-comment', postsController.dislikeComment)
