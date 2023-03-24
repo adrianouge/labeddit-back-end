@@ -157,7 +157,7 @@ export class PostsDTO {
     ): CreateNewPostInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof postId !== 'string') {
@@ -191,7 +191,7 @@ export class PostsDTO {
         postId: unknown): EditPostInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof newContent !== 'string') {
@@ -221,7 +221,7 @@ export class PostsDTO {
     public deletePostInput(userToken: unknown, postId: unknown): DeletePostInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof postId !== 'string') {
@@ -248,7 +248,7 @@ export class PostsDTO {
     public getPostsInput(userToken: unknown): GetPostsInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         const dto: GetPostsInput = { userToken }
@@ -265,7 +265,7 @@ export class PostsDTO {
     public getPostInput(userToken: unknown, postId: unknown): GetPostInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof postId !== 'string') {
@@ -292,7 +292,7 @@ export class PostsDTO {
     public likePostInput(userToken: unknown, postId: unknown): LikePostInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof postId !== 'string') {
@@ -318,7 +318,7 @@ export class PostsDTO {
     public dislikePostInput(userToken: unknown, postId: unknown): DislikePostInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof postId !== 'string') {
@@ -345,7 +345,7 @@ export class PostsDTO {
     public createNewCommentInput(userToken: unknown, postId: unknown, commentId: unknown, content: unknown): CreateNewCommentInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof postId !== 'string') {
@@ -382,7 +382,7 @@ export class PostsDTO {
     public editCommentInput(userToken: unknown, commentId: unknown, newContent: unknown): EditCommentInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof commentId !== 'string') {
@@ -414,7 +414,7 @@ export class PostsDTO {
     public deleteCommentInput(userToken: unknown, commentId: unknown): DeleteCommentInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof commentId !== 'string') {
@@ -441,7 +441,7 @@ export class PostsDTO {
     public getCommentInput(userToken: unknown, commentId: unknown): GetCommentInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof commentId !== 'string') {
@@ -468,7 +468,7 @@ export class PostsDTO {
     public getCommentsInput(userToken: unknown, postId: unknown): GetCommentsInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof postId !== 'string') {
@@ -495,7 +495,7 @@ export class PostsDTO {
     public likeCommentInput(userToken: unknown, commentId: unknown): LikeCommentInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof commentId !== 'string') {
@@ -522,7 +522,7 @@ export class PostsDTO {
     public dislikeCommentInput(userToken: unknown, commentId: unknown): DislikeCommentInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token inválido.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
         }
 
         if (typeof commentId !== 'string') {
