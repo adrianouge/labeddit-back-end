@@ -126,6 +126,7 @@ export class PostsBusiness {
 
 
     public likePost = async (input: LikePostInput) => {
+
         const { userToken, postId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)
@@ -140,6 +141,14 @@ export class PostsBusiness {
             throw new NotFoundError("Não há posts com este 'id' no banco de dados.")
         }
 
+        const [havePostBeenLiked] = await this.postsDatabase.findLikedPost(postId, userPayLoad.id)
+
+        if (havePostBeenLiked) {
+            if (havePostBeenLiked.liked === 1) {
+                throw new BadRequestError("Você já curtiu este post.")
+            }
+        }
+
         await this.postsDatabase.likePost(foundPost, userPayLoad.id)
 
         const output = this.postsDTO.likePostOutput()
@@ -148,6 +157,7 @@ export class PostsBusiness {
     }
 
     public dislikePost = async (input: DislikePostInput) => {
+
         const { userToken, postId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)
@@ -165,7 +175,11 @@ export class PostsBusiness {
         const [foundLikedPost] = await this.postsDatabase.findLikedPost(postId, userPayLoad.id)
 
         if (!foundLikedPost) {
-            throw new NotFoundError("O usuário ainda não deu 'like' no post para poder dar 'dislike'.")
+            throw new BadRequestError("O usuário ainda não deu 'like' no post para poder dar 'dislike'.")
+        }
+
+        if (foundLikedPost.liked === 0) {
+            throw new BadRequestError("O usuário ainda não deu 'like' no post para poder dar 'dislike'.")
         }
 
         await this.postsDatabase.dislikePost(foundLikedPost, foundPost)
@@ -293,7 +307,7 @@ export class PostsBusiness {
 
     public getComment = async (input: GetCommentInput) => {
 
-        const { userToken, commentId} = input
+        const { userToken, commentId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)
 
@@ -314,7 +328,7 @@ export class PostsBusiness {
 
     public likeComment = async (input: LikeCommentInput) => {
 
-        const { userToken, commentId} = input
+        const { userToken, commentId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)
 
@@ -333,7 +347,7 @@ export class PostsBusiness {
             commenter_id: commentToLike.commenter_id,
             post_id: commentToLike.post_id,
             content: commentToLike.content,
-            likes: commentToLike.likes +=1,
+            likes: commentToLike.likes += 1,
             created_at: commentToLike.created_at,
             edited_at: commentToLike.edited_at
         }
@@ -344,8 +358,8 @@ export class PostsBusiness {
         return output
     }
 
-    public dislikeComment = async(input: DislikeCommentInput) => {
-        const {userToken, commentId} = input
+    public dislikeComment = async (input: DislikeCommentInput) => {
+        const { userToken, commentId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)
 
@@ -364,7 +378,7 @@ export class PostsBusiness {
             commenter_id: commentToDislike.commenter_id,
             post_id: commentToDislike.post_id,
             content: commentToDislike.content,
-            likes: commentToDislike.likes -=1,
+            likes: commentToDislike.likes -= 1,
             created_at: commentToDislike.created_at,
             edited_at: commentToDislike.edited_at
         }

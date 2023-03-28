@@ -292,7 +292,7 @@ export class PostsDTO {
     public likePostInput(userToken: unknown, postId: unknown): LikePostInput {
 
         if (typeof userToken !== 'string') {
-            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'.")
+            throw new BadRequestError("Token do usuário precisa ser do tipo 'string'. Resposta like.")
         }
 
         if (typeof postId !== 'string') {
