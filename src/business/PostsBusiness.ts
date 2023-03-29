@@ -311,11 +311,7 @@ export class PostsBusiness {
             throw new BadRequestError("Token inválido.")
         }
 
-        const [postComments] = await this.postsDatabase.getComments(postId)
-
-        if (!postComments) {
-            throw new NotFoundError("Não há comentários neste post.")
-        }
+        const postComments = await this.postsDatabase.getComments(postId)
 
         const output = this.postsDTO.getCommentsOutput(postComments)
         return output
