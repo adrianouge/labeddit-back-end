@@ -313,8 +313,7 @@ export class PostsBusiness {
 
         const postComments = await this.postsDatabase.getComments(postId)
 
-        const output = this.postsDTO.getCommentsOutput(postComments)
-        return output
+        return postComments
     }
 
 
