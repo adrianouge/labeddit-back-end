@@ -6,7 +6,9 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 
+
 export class PostsBusiness {
+
     constructor(
         private postsDTO: PostsDTO,
         private postsDatabase: PostsDatabase,
@@ -92,6 +94,7 @@ export class PostsBusiness {
 
 
     public getPost = async (input: GetPostInput) => {
+
         const { userToken, postId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)
@@ -112,6 +115,7 @@ export class PostsBusiness {
     }
 
     public getPosts = async (input: GetPostsInput) => {
+        
         const { userToken } = input
         const userPayLoad = this.tokenManager.getPayload(userToken)
 
@@ -146,6 +150,15 @@ export class PostsBusiness {
         if (havePostBeenLiked) {
             if (havePostBeenLiked.liked === 1) {
                 throw new BadRequestError("Você já curtiu este post.")
+            }
+
+            if (havePostBeenLiked.liked === 0) {
+
+                await this.postsDatabase.relikePost(havePostBeenLiked, foundPost)
+
+                const output = this.postsDTO.likePostOutput()
+
+                return output
             }
         }
 
@@ -223,6 +236,7 @@ export class PostsBusiness {
         return output
     }
 
+
     public editComment = async (input: EditCommentInput) => {
 
         const { userToken, commentId, newContent } = input
@@ -259,6 +273,7 @@ export class PostsBusiness {
         return output
     }
 
+
     public deleteComment = async (input: DeleteCommentInput) => {
 
         const { userToken, commentId } = input
@@ -287,6 +302,7 @@ export class PostsBusiness {
 
 
     public getComments = async (input: GetCommentsInput) => {
+
         const { userToken, postId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)
@@ -304,6 +320,7 @@ export class PostsBusiness {
         const output = this.postsDTO.getCommentsOutput(postComments)
         return output
     }
+
 
     public getComment = async (input: GetCommentInput) => {
 
@@ -359,6 +376,7 @@ export class PostsBusiness {
     }
 
     public dislikeComment = async (input: DislikeCommentInput) => {
+
         const { userToken, commentId } = input
 
         const userPayLoad = this.tokenManager.getPayload(userToken)

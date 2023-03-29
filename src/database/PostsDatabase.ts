@@ -71,6 +71,16 @@ export class PostsDatabase extends BaseDatabase {
             .where({ post_id: likedPost.post_id, user_id: likedPost.user_id })
     }
 
+    public async relikePost(likedPost: likedPostDB, postToRelike: postDB): Promise<void> {
+
+        await this.dbConnection(PostsDatabase.TABLE_POSTS)
+            .update({ ...postToRelike, likes: postToRelike.likes += 1 })
+            .where({ post_id: postToRelike.post_id })
+
+        await this.dbConnection(PostsDatabase.TABLE_LIKES)
+            .update({ ...likedPost, liked: 1 })
+            .where({ post_id: likedPost.post_id, user_id: likedPost.user_id })
+    }
 
 
     public async createNewComment(newComment: commentDB): Promise<void> {
