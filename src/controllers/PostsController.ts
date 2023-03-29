@@ -289,8 +289,8 @@ export class PostsController {
         try {
             const userToken = req.headers.authorization
             const commentId = req.body.comment_id
-            const input = this.postsDTO.likePostInput(userToken, commentId)
-            const output = await this.postsBusiness.likePost(input)
+            const input = this.postsDTO.likeCommentInput(userToken, commentId)
+            const output = await this.postsBusiness.likeComment(input)
 
             res.status(200).send(output)
         }
