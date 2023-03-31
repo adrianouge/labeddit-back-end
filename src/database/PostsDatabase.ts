@@ -83,9 +83,13 @@ export class PostsDatabase extends BaseDatabase {
     }
 
 
-    public async createNewComment(newComment: commentDB): Promise<void> {
+    public async createNewComment(newComment: commentDB, postWithNewComment: postDB): Promise<void> {
         await this.dbConnection(PostsDatabase.TABLE_COMMENTS)
             .insert(newComment)
+
+        await this.dbConnection(PostsDatabase.TABLE_POSTS)
+            .update(postWithNewComment)
+            .where({ post_id: postWithNewComment.post_id })
     }
 
     public async editComment(editedComment: commentDB): Promise<void> {

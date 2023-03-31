@@ -115,7 +115,7 @@ export class PostsBusiness {
     }
 
     public getPosts = async (input: GetPostsInput) => {
-        
+
         const { userToken } = input
         const userPayLoad = this.tokenManager.getPayload(userToken)
 
@@ -214,11 +214,20 @@ export class PostsBusiness {
             throw new BadRequestError("Token inválido.")
         }
 
+
+        const [foundPost] = await this.postsDatabase.getPost(postId)
+
+        if (!foundPost) {
+            throw new NotFoundError("Não há posts com esse 'id' para criar novo comentário.")
+        }
+
+
         const [checkCommentId] = await this.postsDatabase.getComment(commentId)
 
         if (checkCommentId) {
             throw new BadRequestError("Já existe um comentário com o 'id' inserido.")
         }
+
 
         const newComment: commentDB = {
             comment_id: commentId,
@@ -230,7 +239,11 @@ export class PostsBusiness {
             edited_at: new Date().toISOString()
         }
 
-        await this.postsDatabase.createNewComment(newComment)
+        const postWithNewComment: postDB = {
+            ...foundPost, comments: foundPost.comments += 1
+        }
+
+        await this.postsDatabase.createNewComment(newComment, postWithNewComment)
 
         const output = this.postsDTO.createNewCommentOutput()
         return output
